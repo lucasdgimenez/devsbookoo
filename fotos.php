@@ -5,7 +5,7 @@ require_once 'dao/PostDaoMysql.php';
 
 $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
-$activeMenu = 'friends';
+$activeMenu = 'photos';
 $user = [];
 $feed = [];
 
@@ -74,64 +74,34 @@ require 'partials/menu.php';
 </div>
 
 <div class="row">
-<div class="column">
+    <div class="column">
                     
-    <div class="box">
-        <div class="box-body">
+        <div class="box">
+            <div class="box-body">
 
-            <div class="tabs">
-                <div class="tab-item" data-for="followers">
-                    Seguidores
-                </div>
-                <div class="tab-item active" data-for="following">
-                    Seguindo
-                </div>
-            </div>
-            <div class="tab-content">
-                <div class="tab-body" data-item="followers">
-                    
-                    <div class="full-friend-list">
-                    <?php foreach($user->followers as $item): ?>
-                        <div class="friend-icon">
-                            <a href="<?=$base;?>/perfil.php?id=<?=$item->id;?>">
-                                <div class="friend-icon-avatar">
-                                    <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                                </div>
-                                <div class="friend-icon-name">
-                                    <?=$item->name;?>
-                                </div>
+                <div class="full-user-photos">
+                    <?php foreach($user->photos as $key => $item): ?>
+                        <div class="user-photo-item">
+                            <a href="#modal-<?=$key;?>" rel="modal:open">
+                                <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
                             </a>
+                            <div id="modal-<?=$key;?>" style="display:none">
+                                <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
+                            </div>
                         </div>
                     <?php endforeach; ?>
 
-                      
-                    </div>
+                    <?php if(count($user->photos) == 0): ?>
+                        Não há fotos deste usuário.
+                    <?php endif; ?>
 
                 </div>
-                <div class="tab-body" data-item="following">
-                    
-                    <div class="full-friend-list">
-                        <?php foreach($user->following as $item): ?>
-                            <div class="friend-icon">
-                                <a href="<?=$base;?>/perfil.php?id=<?=$item->id;?>">
-                                    <div class="friend-icon-avatar">
-                                        <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                                    </div>
-                                    <div class="friend-icon-name">
-                                        <?=$item->name;?>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                
 
-                </div>
             </div>
-
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 
 </section>
