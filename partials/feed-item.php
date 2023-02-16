@@ -1,4 +1,6 @@
 <?php 
+require_once 'feed-item-script.php';
+
 $actionPhrase = "'";
 switch($item->type) {
     case 'text':
@@ -9,7 +11,7 @@ switch($item->type) {
 }
 ?>
 
-<div class="box feed-item">
+<div class="box feed-item" data-id="<?=$item->id;?>">
     <div class="box-body">
         <div class="feed-item-head row mt-20 m-width-20">
             <div class="feed-item-head-photo">
@@ -33,7 +35,7 @@ switch($item->type) {
             <?=nl2br($item->body);?>
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
-            <div class="like-btn <?php $item->liked?'on':''?>"><?=$item->likeCount;?></div>
+            <div class="like-btn <?=$item->liked?'on':'';?>"><?=$item->likeCount;?></div>
             <div class="msg-btn"><?= count($item->comments); ?></div>
         </div>
         <div class="feed-item-comments">
