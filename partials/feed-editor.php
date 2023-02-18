@@ -49,6 +49,7 @@ feedFile.addEventListener('change', async function(){
     }
 
     window.location.href = window.location.href;
+    feedFile.submit();
 });
 
 feedSubmit.addEventListener('click', function(){
